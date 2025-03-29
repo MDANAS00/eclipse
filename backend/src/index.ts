@@ -1,13 +1,16 @@
-import express, { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-
-import userRouter from "./routes/userRoutes.js";
-import errorMiddleware from "./middlewares/errorMiddleware.js";
+import "dotenv/config";
+import express from "express";
 
 const app = express();
+const prisma = new PrismaClient();
 
 app.use(cors());
 app.use(express.json());
-app.use(errorMiddleware);
 
-app.use("/api/users", userRouter);
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+app.listen(5000, () => console.log("Server running on http://localhost:5000"));
